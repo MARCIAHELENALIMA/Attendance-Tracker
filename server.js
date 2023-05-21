@@ -24,7 +24,6 @@ app.use('/users', userRoutes);
 app.use('/sockets', socketRoutes);
 
 // Iniciar o servidor
-const port = 3000;
-server.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}`);
+const port = app.listen(8000, () => {
+  console.log('Servidor rodando em http://localhost:8000');
 });

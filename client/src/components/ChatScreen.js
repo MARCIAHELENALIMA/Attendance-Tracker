@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000'); // Substitua com a URL correta do servidor back-end

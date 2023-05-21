@@ -10,7 +10,7 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={LoginForm} />
-        <Route path="/chat" component={ChatScreen} />
+        <Route path="/Chat" component={ChatScreen} />
       </Switch>
     </BrowserRouter>
   );
