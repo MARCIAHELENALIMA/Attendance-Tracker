@@ -14,11 +14,11 @@ Certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
 Siga as etapas abaixo para configurar e executar o projeto:
 
 1. Clone este repositório para o seu computador:
-git clone https://github.com/seu-usuario/desafio-dev-iniciante.git
+git clone https://github.com/MARCIAHELENALIMA/Desafio-Vaga-Dev-Iniciante.git
 
 
 2. Acesse o diretório do projeto:
-cd desafio-vaga-dev-iniciante
+cd Desafio-Vaga-Dev-Iniciante
 
 
 3. Instale as dependências do projeto:
@@ -26,12 +26,9 @@ npm install
 
 
 4. Configuração do servidor back-end:   
-a. Acesse o diretório do servidor:
-   cd server   
+a. Crie um arquivo `.env` na raiz do diretório e defina as variáveis de ambiente necessárias (como configurações de banco de dados, chaves de API, etc.).
 
-b. Crie um arquivo `.env` na raiz do diretório `server` e defina as variáveis de ambiente necessárias (como configurações de banco de dados, chaves de API, etc.).
-
-c. Inicie o servidor:
+b. Inicie o servidor:
    npm start
 
 O servidor estará em execução em http://localhost:8000.

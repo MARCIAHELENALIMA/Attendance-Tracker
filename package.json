@@ -1,0 +1,17 @@
+{
+  "name": "desafio-vaga-dev-iniciante",
+  "version": "1.0.0",
+  "description": "Este é um projeto do desafio para a vaga de desenvolvedor iniciante. Consiste em uma aplicação de chat usando React no front-end e Node.js (Express) no back-end.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "MARCIA HELENA",
+  "license": "ISC",
+  "dependencies": {
+    "express-ws": "^5.0.2",
+    "mongoose": "^7.2.0"
+  }
+}
