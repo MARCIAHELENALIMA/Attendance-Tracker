@@ -14,7 +14,7 @@ Certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
 Siga as etapas abaixo para configurar e executar o projeto:
 
 1. Clone este repositório para o seu computador:
-git clone https://github.com/seu-usuario/desafio-vaga-dev-iniciante.git
+git clone https://github.com/seu-usuario/desafio-dev-iniciante.git
 
 
 2. Acesse o diretório do projeto:
