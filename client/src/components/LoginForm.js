@@ -5,28 +5,27 @@ import { useHistory } from 'react-router-dom';
 const LoginForm = () => {
   const [cpf, setCpf] = useState('');
   const [senha, setSenha] = useState('');
-  const [error, setError] = useState('');
-
+  const [erro, setError] = useState('');
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verificar se os campos estão preenchidos
+    // Verifica se os campos estão preenchidos
     if (!cpf || !senha) {
       setError('Por favor, preencha todos os campos.');
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/login', { cpf, senha });
+      const response = await axios.post('http://localhost:8000/login', { cpf, senha });
       const { token } = response.data;
-      
+
       // Armazenar o token no local storage ou em algum estado global
       localStorage.setItem('token', token);
-      
+
       // Redirecionar para a página de chat
-      history.push('/Chat');
+      history.push('/chat');
     } catch (error) {
       if (error.response) {
         // O servidor respondeu com um status de erro
@@ -42,6 +41,7 @@ const LoginForm = () => {
     }
   };
 
+  
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <h2 style={{ marginBottom: '20px' }}>Login</h2>
