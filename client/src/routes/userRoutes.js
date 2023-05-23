@@ -1,22 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const UserModel = require('../models/UserModel');
 const ChatModel = require('../models/ChatModel');
 
 // Rota para autenticação/login do usuário
 router.post('/login', async (req, res) => {
   const { cpf, senha } = req.body;
-  
+
   try {
     // Verificar se o usuário existe na base de dados
     const user = await UserModel.findOne({ cpf, senha });
-    
+
     if (!user) {
       return res.status(401).json({ message: 'Credenciais inválidas' });
     }
-    
-    // Autenticação bem-sucedida
-    return res.status(200).json({ message: 'Login bem-sucedido' });
+
+    // Gerar um token de autenticação
+    const token = jwt.sign({ userId: user._id }, 'seu-segredo-aqui');
+
+    // Retornar o token para o cliente
+    return res.status(200).json({ token });
   } catch (error) {
     console.error('Erro ao realizar login:', error);
     return res.status(500).json({ message: 'Erro ao realizar login' });

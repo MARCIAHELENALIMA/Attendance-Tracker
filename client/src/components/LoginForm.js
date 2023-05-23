@@ -12,20 +12,33 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Verificar se os campos estão preenchidos
+    if (!cpf || !senha) {
+      setError('Por favor, preencha todos os campos.');
+      return;
+    }
+
     try {
-      // Enviar os dados de login para o servidor
       const response = await axios.post('http://localhost:3000/login', { cpf, senha });
-
-      // Obter o token de autenticação do servidor
       const { token } = response.data;
-
+      
       // Armazenar o token no local storage ou em algum estado global
-      // ... código para armazenar o token ...
-
+      localStorage.setItem('token', token);
+      
       // Redirecionar para a página de chat
       history.push('/Chat');
     } catch (error) {
-      setError('Erro ao realizar login. Verifique suas credenciais.');
+      if (error.response) {
+        // O servidor respondeu com um status de erro
+        const { message } = error.response.data;
+        setError(message);
+      } else if (error.request) {
+        // A requisição foi feita, mas não houve resposta do servidor
+        setError('Erro ao realizar a requisição. Verifique sua conexão com a internet.');
+      } else {
+        // Ocorreu um erro ao configurar a requisição
+        setError('Erro ao configurar a requisição.');
+      }
     }
   };
 
