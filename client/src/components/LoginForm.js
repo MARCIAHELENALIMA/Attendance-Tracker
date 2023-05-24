@@ -41,7 +41,7 @@ const LoginForm = () => {
     }
   };
 
-  
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <h2 style={{ marginBottom: '20px' }}>Login</h2>

@@ -1,18 +1,20 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import LoginForm from '../src/components/LoginForm';
 import ChatScreen from '../src/components/ChatScreen';
-const API_BASE_URL = "http://localhost:8000";
-
+import styles from './App.module.css';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={LoginForm} />
-        <Route path="/Chat" component={ChatScreen} />
-      </Switch>
-    </BrowserRouter>
+    <Router>
+      <div className={styles.app}>
+        <Switch>
+          <Route exact path="/" component={LoginForm} />
+          <Route path="/chat" component={ChatScreen} />
+          <Redirect to="/" />
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
