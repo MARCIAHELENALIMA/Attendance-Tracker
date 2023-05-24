@@ -26,11 +26,12 @@ const LoginForm = () => {
 
       // Redirecionar para a página de chat
       history.push('/chat');
+      
     } catch (error) {
       if (error.response) {
         // O servidor respondeu com um status de erro
         const { message } = error.response.data;
-        setError(message);
+        setError(message); // Altere "message" para "error"
       } else if (error.request) {
         // A requisição foi feita, mas não houve resposta do servidor
         setError('Erro ao realizar a requisição. Verifique sua conexão com a internet.');
@@ -45,7 +46,7 @@ const LoginForm = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
       <h2 style={{ marginBottom: '20px' }}>Login</h2>
-      {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
+      {erro && <p style={{ color: 'red', marginBottom: '10px' }}>{erro}</p>}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
         <div style={{ marginBottom: '10px', textAlign: 'left' }}>
           <label htmlFor="cpf">CPF:</label>

@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
+
+const API_BASE_URL = 'http://localhost:8000/login'; // Defina o valor correto aqui
+
 const socket = io(API_BASE_URL);
+
 
 const ChatScreen = () => {
   const history = useHistory();
