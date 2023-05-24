@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const UserModel = require('../models/UserModel');
 const ChatModel = require('../models/ChatModel');
 
@@ -10,9 +11,16 @@ router.post('/login', async (req, res) => {
 
   try {
     // Verificar se o usuário existe na base de dados
-    const user = await UserModel.findOne({ cpf, senha });
+    const user = await UserModel.findOne({ cpf });
 
     if (!user) {
+      return res.status(401).json({ message: 'Credenciais inválidas' });
+    }
+
+    // Comparar a senha fornecida com o hash de senha armazenado no banco de dados
+    const isPasswordValid = await bcrypt.compare(senha, user.senha);
+
+    if (!isPasswordValid) {
       return res.status(401).json({ message: 'Credenciais inválidas' });
     }
 

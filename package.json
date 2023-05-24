@@ -11,6 +11,7 @@
   "author": "MARCIA HELENA",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "css-loader": "^6.7.4",
     "express-ws": "^5.0.2",
