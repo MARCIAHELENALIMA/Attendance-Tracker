@@ -47,6 +47,91 @@ const ChatScreen = () => {
     history.push('/');
   };
 
+  const styles = {
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      marginTop: '20px',
+      backgroundImage: 'url("/client/public/fundoTela.jpg")',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundColor: '#282C34', // Cor de fundo escura
+      color: 'white', // Cor do texto
+    },
+    header: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      padding: '10px',
+      backgroundColor: '#075e54', // Cor do cabeçalho do WhatsApp
+      color: 'white',
+    },
+    title: {
+      fontSize: '20px',
+    },
+    logoutButton: {
+      backgroundColor: 'transparent',
+      border: 'none',
+      color: '#fff', // Cor do texto do botão
+      fontSize: '16px',
+      cursor: 'pointer',
+    },
+    userList: {
+      width: '300px',
+      padding: '10px',
+      backgroundColor: '#363B44', // Cor de fundo da lista de usuários
+      float: 'left', // Alinhar à esquerda
+    },
+    userListTitle: {
+      margin: '0',
+    },
+    userListContainer: {
+      margin: '0',
+      padding: '0',
+      listStyleType: 'none',
+    },
+    userListItem: {
+      marginBottom: '5px',
+    },
+    messageList: {
+      width: '400px',
+      padding: '10px',
+      backgroundColor: '#2F3136', // Cor de fundo da lista de mensagens
+      float: 'right', // Alinhar à direita
+    },
+    messageListTitle: {
+      margin: '0',
+    },
+    messageListContainer: {
+      margin: '0',
+      padding: '0',
+      listStyleType: 'none',
+    },
+    messageListItem: {
+      marginBottom: '5px',
+      textAlign: 'right', // Alinhar à direita
+    },
+    messageForm: {
+      display: 'flex',
+      marginTop: '10px',
+    },
+    input: {
+      marginRight: '10px',
+      padding: '5px',
+      width: '300px',
+    },
+    button: {
+      padding: '5px 10px',
+      backgroundColor: '#075e54', // Cor do botão do WhatsApp
+      color: 'white',
+      border: 'none',
+      cursor: 'pointer',
+    },
+  };
+  
   return (
     <div style={styles.container}>
       <div style={styles.header}>
@@ -81,83 +166,6 @@ const ChatScreen = () => {
       </form>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: '20px',
-  },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    padding: '10px',
-    backgroundColor: '#075e54',
-    color: 'white',
-  },
-  title: {
-    fontSize: '20px',
-  },
-  logoutButton: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    color: 'white',
-    fontSize: '16px',
-    cursor: 'pointer',
-  },
-  userList: {
-    width: '300px',
-    padding: '10px',
-    backgroundColor: '#ededed',
-  },
-  userListTitle: {
-    margin: '0',
-  },
-  userListContainer: {
-    margin: '0',
-    padding: '0',
-    listStyleType: 'none',
-  },
-  userListItem: {
-    marginBottom: '5px',
-  },
-  messageList: {
-    width: '400px',
-    padding: '10px',
-    backgroundColor: 'white',
-  },
-  messageListTitle: {
-    margin: '0',
-  },
-  messageListContainer: {
-    margin: '0',
-    padding: '0',
-    listStyleType: 'none',
-  },
-  messageListItem: {
-    marginBottom: '5px',
-  },
-  messageForm: {
-    display: 'flex',
-    marginTop: '10px',
-  },
-  input: {
-    marginRight: '10px',
-    padding: '5px',
-    width: '300px',
-  },
-  button: {
-    padding: '5px 10px',
-    backgroundColor: '#075e54',
-    color: 'white',
-    border: 'none',
-    cursor: 'pointer',
-  },
-};
-
+}
 
 export default ChatScreen;
