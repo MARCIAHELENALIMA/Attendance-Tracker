@@ -18,7 +18,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/login', { cpf, senha });
+      const response = await axios.post('http://localhost:8000/', { cpf, senha });
       const { token } = response.data;
 
       // Armazenar o token no local storage ou em algum estado global
