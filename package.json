@@ -11,6 +11,7 @@
   "author": "MARCIA HELENA",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -19,10 +20,12 @@
     "express-ws": "^5.0.2",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.2.0",
-    "react-router-dom": "^5.3.4",
+    "mongoose": "^7.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.2",
     "socket.io": "^4.6.1",
-    "socket.io-client": "^4.4.1",
+    "socket.io-client": "^4.6.1",
     "style-loader": "^3.3.3"
   },
   "devDependencies": {

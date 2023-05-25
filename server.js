@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const userRoutes = require('./client/src/routes/userRoutes');
 const socketRoutes = require('./client/src/routes/socketRoutes');
 const cookieParser = require('cookie-parser');
+const UserModel = require('./client/src/models/UserModel');
+
 
 const app = express();
 const httpServer = http.createServer(app);
