@@ -104,42 +104,19 @@ const io = new Server(httpServer, {
   },
 });
 
-// Lista de usuários conectados
-let connectedUsers = [];
-
 io.on('connection', (socket) => {
   console.log('Novo cliente conectado');
 
-  // Adicionar o usuário à lista de usuários conectados
-  socket.on('addUser', (user) => {
-    const existingUser = connectedUsers.find((u) => u.id === user.id);
-    if (!existingUser) {
-      connectedUsers.push(user);
-    }
+  socket.on('sendMessage', (message) => {
+    // Lógica para lidar com a mensagem recebida do cliente
+    console.log('Mensagem recebida:', message);
 
-    // Enviar a lista de usuários conectados para todos os clientes
-    io.emit('userList', connectedUsers);
-  });
-
-  socket.on('sendMessage', (message, receiverId) => {
-    // Lógica para enviar a mensagem para o destinatário correto
-    // ...
-
-    // Enviar a mensagem apenas para o destinatário
-    const receiverSocket = connectedUsers.find((user) => user.id === receiverId);
-    if (receiverSocket) {
-      io.to(receiverSocket.socketId).emit('message', message, socket.id);
-    }
+    // Enviar a mensagem de volta para o cliente ou fazer outras ações necessárias
+    socket.emit('message', 'Mensagem recebida pelo servidor');
   });
 
   socket.on('disconnect', () => {
     console.log('Cliente desconectado');
-
-    // Remover o usuário da lista de usuários conectados
-    connectedUsers = connectedUsers.filter((user) => user.socketId !== socket.id);
-
-    // Enviar a nova lista de usuários conectados para todos os clientes
-    io.emit('userList', connectedUsers);
   });
 });
 
