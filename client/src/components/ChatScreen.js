@@ -8,6 +8,7 @@ const ChatScreen = () => {
   const history = useHistory();
   const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
@@ -15,8 +16,11 @@ const ChatScreen = () => {
       console.log('Conectado ao servidor de chat');
     });
 
-    socket.on('message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+    socket.on('message', ({ message, sender }) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: message, sender },
+      ]);
     });
 
     socket.on('userList', (userList) => {
@@ -35,9 +39,10 @@ const ChatScreen = () => {
   const handleSendMessage = (e) => {
     e.preventDefault();
 
-    socket.emit('sendMessage', newMessage);
-
-    setNewMessage('');
+    if (selectedUser) {
+      socket.emit('sendMessage', { message: newMessage, receiver: selectedUser.id });
+      setNewMessage('');
+    }
   };
 
   const handleLogout = () => {
@@ -47,35 +52,67 @@ const ChatScreen = () => {
     history.push('/');
   };
 
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+  };
+
   return (
     <div>
-      <h2>Tela de Chat</h2>
-      <button onClick={handleLogout}>Sair</button>
+      <h2 style={{ fontSize: '24px', color: 'blue' }}>Tela de Chat</h2>
+      <button
+        style={{ backgroundColor: 'red', color: 'white', padding: '10px', borderRadius: '5px' }}
+        onClick={handleLogout}
+      >
+        Sair
+      </button>
       <div>
-        <h3>Usuários Online:</h3>
+        <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Usuários Online:</h3>
         <ul>
           {users.map((user) => (
-            <li key={user.id}>{user.username}</li>
+            <li
+              key={user.id}
+              style={{ marginBottom: '5px', cursor: 'pointer', color: user === selectedUser ? 'blue' : 'black' }}
+              onClick={() => handleUserClick(user)}
+            >
+              {user.username} {user === selectedUser && '(selecionado)'}
+            </li>
           ))}
         </ul>
       </div>
-      <div>
-        <h3>Mensagens:</h3>
-        <ul>
-          {messages.map((message, index) => (
-            <li key={index}>{message}</li>
-          ))}
-        </ul>
-      </div>
-      <form onSubmit={handleSendMessage}>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Digite sua mensagem"
-        />
-        <button type="submit">Enviar</button>
-      </form>
+      {selectedUser ? (
+        <div>
+          <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>Mensagens:</h3>
+          <ul>
+            {messages.map((message, index) => (
+              <li key={index} style={{ marginBottom: '10px' }}>
+                {message.sender === selectedUser.id ? (
+                  <span style={{ fontWeight: 'bold' }}>{message.text}</span>
+                ) : (
+                  <span>{message.text}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <form onSubmit={handleSendMessage}>
+            <input
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              placeholder="Digite sua mensagem"
+              style={{ width: '300px', padding: '5px' }}
+            />
+            <button
+              type="submit"
+              style={{ backgroundColor: 'green', color: 'white', padding: '5px', marginLeft: '10px' }}
+              disabled={!newMessage.trim()}
+            >
+              Enviar
+            </button>
+          </form>
+        </div>
+      ) : (
+        <div>Selecione um usuário para iniciar a conversa</div>
+      )}
     </div>
   );
 };
