@@ -3,13 +3,14 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const http = require('http');
 const mongoose = require('mongoose');
+const userRoutes = require('./client/src/routes/userRoutes');
+const socketRoutes = require('./client/src/routes/socketRoutes');
 const cookieParser = require('cookie-parser');
 
 const app = express();
 const httpServer = http.createServer(app);
 app.use(cookieParser());
 app.use(cors());
-
 
 // Configurar a conexão com o MongoDB
 mongoose
