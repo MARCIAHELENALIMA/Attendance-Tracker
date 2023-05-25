@@ -3,14 +3,13 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const http = require('http');
 const mongoose = require('mongoose');
-const userRoutes = require('./client/src/routes/userRoutes');
-const socketRoutes = require('./client/src/routes/socketRoutes');
 const cookieParser = require('cookie-parser');
 
 const app = express();
 const httpServer = http.createServer(app);
 app.use(cookieParser());
 app.use(cors());
+
 
 // Configurar a conexão com o MongoDB
 mongoose
@@ -105,19 +104,42 @@ const io = new Server(httpServer, {
   },
 });
 
+// Lista de usuários conectados
+let connectedUsers = [];
+
 io.on('connection', (socket) => {
   console.log('Novo cliente conectado');
 
-  socket.on('sendMessage', (message) => {
-    // Lógica para lidar com a mensagem recebida do cliente
-    console.log('Mensagem recebida:', message);
+  // Adicionar o usuário à lista de usuários conectados
+  socket.on('addUser', (user) => {
+    const existingUser = connectedUsers.find((u) => u.id === user.id);
+    if (!existingUser) {
+      connectedUsers.push(user);
+    }
 
-    // Enviar a mensagem de volta para o cliente ou fazer outras ações necessárias
-    socket.emit('message', 'Mensagem recebida pelo servidor');
+    // Enviar a lista de usuários conectados para todos os clientes
+    io.emit('userList', connectedUsers);
+  });
+
+  socket.on('sendMessage', (message, receiverId) => {
+    // Lógica para enviar a mensagem para o destinatário correto
+    // ...
+
+    // Enviar a mensagem apenas para o destinatário
+    const receiverSocket = connectedUsers.find((user) => user.id === receiverId);
+    if (receiverSocket) {
+      io.to(receiverSocket.socketId).emit('message', message, socket.id);
+    }
   });
 
   socket.on('disconnect', () => {
     console.log('Cliente desconectado');
+
+    // Remover o usuário da lista de usuários conectados
+    connectedUsers = connectedUsers.filter((user) => user.socketId !== socket.id);
+
+    // Enviar a nova lista de usuários conectados para todos os clientes
+    io.emit('userList', connectedUsers);
   });
 });
 
