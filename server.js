@@ -14,82 +14,77 @@ const httpServer = http.createServer(app);
 app.use(cookieParser());
 app.use(cors());
 
-// Configurar a conexão com o MongoDB
+// Configure connection to MongoDB
 mongoose
   .connect('mongodb://localhost:27017/chat_app', {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
   .then(() => {
-    console.log('Conectado ao MongoDB');
+    console.log('Connected to MongoDB');
   })
   .catch((error) => {
-    console.log('Erro ao conectar ao MongoDB:', error);
+    console.log('Error connecting to MongoDB:', error);
   });
 
-// Middleware para o corpo das requisições
+// Middleware for request bodies
 app.use(express.json());
 
-// Middleware para configurar os atributos SameSite e Secure para todos os cookies enviados nas respostas do servidor
+// Middleware to set SameSite and Secure attributes for all cookies sent in server responses
 app.use((req, res, next) => {
   res.setHeader('Set-Cookie', 'SameSite=None; Secure');
   next();
 });
 
-// Rota para autenticação/login do usuário
+// Route for user authentication/login
 app.post('/login', async (req, res) => {
   const { cpf, senha } = req.body;
 
   try {
-    // Verificar se o usuário existe na base de dados
+    // Check if the user exists in the database
     const user = await UserModel.findOne({ cpf });
 
     if (!user) {
-      return res.status(401).json({ message: 'Credenciais inválidas' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Comparar a senha fornecida com o hash de senha armazenado no banco de dados
+    // Compare the provided password with the hashed password stored in the database
     const isPasswordValid = await bcrypt.compare(senha, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Credenciais inválidas' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Gerar um token de autenticação
-    const token = jwt.sign({ userId: user._id }, 'seu-segredo-aqui');
+    // Generate an authentication token
+    const token = jwt.sign({ userId: user._id }, 'your-secret-here');
 
-    // Retornar o token para o cliente
+    // Return the token to the client
     return res.status(200).json({ token });
   } catch (error) {
-    console.error('Erro ao realizar login:', error);
-    return res.status(500).json({ message: 'Erro ao realizar login' });
+    console.error('Error during login:', error);
+    return res.status(500).json({ message: 'Error during login' });
   }
 });
 
-// Rota para lidar com a solicitação POST em "/"
+// Route to handle POST requests to "/"
 app.post('/', (req, res) => {
-  // Lógica para lidar com a solicitação POST em "/"
-  // Aqui você pode processar os dados enviados no corpo da solicitação (req.body) e enviar uma resposta adequada
+  // Logic to handle the POST request to "/"
+  // Here you can process the data sent in the request body (req.body) and send an appropriate response
 
-  // Exemplo de envio de uma resposta de sucesso com os dados recebidos
+  // Example of sending a success response with the received data
   const { nome, idade } = req.body;
-  res.status(200).json({ message: 'Solicitação POST recebida com sucesso', nome, idade });
+  res.status(200).cookie('cookieName', 'cookieValue', { sameSite: 'none', secure: true }).json({ message: 'POST request received successfully', nome, idade });
 });
 
-
-// Rota de exemplo para configurar um cookie com atributos SameSite e Secure
+// Example route to set a cookie with SameSite and Secure attributes
 app.get('/example-route', (req, res) => {
-  // Configurar os atributos SameSite e Secure para todos os cookies enviados nas respostas do servidor
-  res.setHeader('Set-Cookie', [
-    'cookieName1=cookieValue1; SameSite=None; Secure',
-    'cookieName2=cookieValue2; SameSite=None; Secure',
-    'cookieName3=cookieValue3; SameSite=None; Secure'
-  ]);
-
-  res.send('Cookies configurados corretamente');
+  res.cookie('cookieName1', 'cookieValue1', { sameSite: 'none', secure: true });
+  res.cookie('cookieName2', 'cookieValue2', { sameSite: 'none', secure: true });
+  res.cookie('cookieName3', 'cookieValue3', { sameSite: 'none', secure: true });
+  res.send('Cookies configured successfully');
 });
 
-// Usar as rotas no aplicativo
+// Use the routes in the application
 app.use('/users', userRoutes);
 app.use('/sockets', socketRoutes);
 
