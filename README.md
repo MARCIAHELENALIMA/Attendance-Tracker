@@ -55,38 +55,37 @@ Faça login com as credenciais sugeridas no cpf e adicione qualquer numero para 
 envie e receba mensagens em tempo real com outros usuários que estão online no momento.
 
 # Estrutura do Projeto
+A estrutura do projeto é a seguinte:
 
-- A estrutura do projeto é a seguinte:
-
-backend/: Contém os arquivos do servidor back-end.
-backend/routes/: define as rotas de API para autenticação de usuário e comunicação de soquete.
-backend/models/: Define os modelos de dados para MongoDB.
-frontend/: contém o aplicativo React front-end.
-frontend/src/components/: Contém componentes reutilizáveis ​​usados ​​no aplicativo.
-frontend/src/pages/: Contém as páginas principais do aplicativo.
-frontend/src/services/: contém o serviço de API para interagir com o back-end.
-frontend/src/utils/: Contém funções de utilidade e constantes.
+- backend/: Contém os arquivos do servidor back-end.
+- backend/routes/: define as rotas de API para autenticação de usuário e comunicação de soquete.
+- backend/models/: Define os modelos de dados para MongoDB.
+- frontend/: contém o aplicativo React front-end.
+- frontend/src/components/: Contém componentes reutilizáveis ​​usados ​​no aplicativo.
+- frontend/src/pages/: Contém as páginas principais do aplicativo.
+- frontend/src/services/: contém o serviço de API para interagir com o back-end.
+- frontend/src/utils/: Contém funções de utilidade e constantes.
 
 # Tecnologias usadas
 
-- Front-end:
-Reagir
-React Router
-Axios
-Cliente Socket.IO
-Bootstrap
-FonteAwesome
-Componentes estilizados
+Front-end:
+* Reagir
+* React Router
+* Axios
+* Cliente Socket.IO
+* Bootstrap
+* FonteAwesome
+* Componentes estilizados
 
-- Back-end:
-Node.js
-Express.js
-MongoDBGenericName
-Mangusto
-Socket.IO
-Bcrypt
-Token da Web JSON (JWT)
-Cors
+Back-end:
+* Node.js
+* Express.js
+* MongoDBGenericName
+* Mangusto
+* Socket.IO
+* Bcrypt
+* Token da Web JSON (JWT)
+* Cors
 
 # Contribuindo
 Contribuições para este projeto são bem-vindas. Se você encontrar algum problema ou tiver sugestões de melhoria, sinta-se à vontade para abrir um problema ou enviar uma solicitação de recebimento.
