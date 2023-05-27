@@ -18,9 +18,6 @@ Siga as etapas abaixo para configurar e executar o projeto localmente:
 Clone o repositório:
 - git clone <https://github.com/MARCIAHELENALIMA/Desafio-Vaga-Dev-Iniciante.git>
 
-Navegue até o diretório de back-end:
-- cd backend
-
 Instale as dependências:
 - npm install 
 
@@ -36,7 +33,7 @@ Inicie o servidor de back-end:
 ## Configuração de front-end
 
 Navegue até o diretório front-end:
-- cd frontend
+- cd client
 
 Instale as dependências:
 - npm install
