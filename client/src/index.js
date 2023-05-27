@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './bootstrap/css/bootstrap.min.css'; // Importar os estilos do Bootstrap
 
 const rootElement = document.getElementById('root');
 
@@ -11,10 +12,5 @@ createRoot(rootElement).render(
     <App />
   </React.StrictMode>
 );
-
-// Ler o valor do elemento do DOM
-const value = rootElement.innerText;
-
-console.log(value);
 
 reportWebVitals();

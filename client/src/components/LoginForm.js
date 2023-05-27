@@ -26,7 +26,6 @@ const LoginForm = () => {
 
       // Redirecionar para a página de chat
       history.push('/chat');
-      
     } catch (error) {
       if (error.response) {
         // O servidor respondeu com um status de erro
@@ -42,22 +41,21 @@ const LoginForm = () => {
     }
   };
 
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      <h2 style={{ marginBottom: '20px' }}>Login</h2>
-      {erro && <p style={{ color: 'red', marginBottom: '10px' }}>{erro}</p>}
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px', padding: '20px', border: '1px solid #ccc', borderRadius: '5px', backgroundColor: '#f9f9f9' }}>
-        <div style={{ marginBottom: '10px', textAlign: 'left' }}>
-          <label htmlFor="cpf">CPF:</label>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <form onSubmit={handleSubmit} className="border rounded p-4 bg-light" style={{ maxWidth: '400px', width: '100%' }}>
+        <h2 className="mb-4">Login</h2>
+        {erro && <p className="text-danger mb-3">{erro}</p>}
+        <div className="mb-3">
+          <label htmlFor="cpf" className="form-label">CPF:</label>
           <input
             type="text"
             id="cpf"
+            className="form-control"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
             list="cpfOptions"
             autoComplete="off"
-            style={{ padding: '5px', width: '100%', border: '1px solid #ccc', borderRadius: '3px' }}
           />
           <datalist id="cpfOptions">
             <option value="123.456.789-00" />
@@ -65,26 +63,19 @@ const LoginForm = () => {
             <option value="111.222.333-44" />
           </datalist>
         </div>
-        <div style={{ marginBottom: '10px', textAlign: 'left' }}>
-          <label htmlFor="senha">Senha:</label>
+        <div className="mb-3">
+          <label htmlFor="senha" className="form-label">Senha:</label>
           <input
             type="password"
             id="senha"
+            className="form-control"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
-            style={{ padding: '5px', width: '100%', border: '1px solid #ccc', borderRadius: '3px' }}
           />
         </div>
         <button
           type="submit"
-          style={{
-            backgroundColor: '#ff69b4',
-            color: 'white',
-            padding: '10px',
-            border: 'none',
-            borderRadius: '5px',
-            cursor: 'pointer',
-          }}
+          className="btn btn-primary btn-lg btn-block"
         >
           Entrar
         </button>

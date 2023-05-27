@@ -11,6 +11,10 @@
   "author": "MARCIA HELENA",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@material-ui/core": "^4.12.4",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
@@ -30,6 +34,7 @@
     "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "style-loader": "^3.3.3",
+    "styled-components": "^5.3.11",
     "web-vitals": "^3.3.1"
   },
   "devDependencies": {

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import usersData from './data';
-import { FaSearch, FaEllipsisH, FaEllipsisV } from 'react-icons/fa';
+import { FaEllipsisH, FaEllipsisV, FaEnvelope } from 'react-icons/fa';
 import { InputGroup, FormControl } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const socket = io('http://localhost:9000');
 
@@ -78,35 +80,47 @@ const ChatScreen = () => {
         <div style={styles.header}>
           <img
             style={styles.whatsappLogo}
-            src="https://anagiovanna.com.br/blog/wp-content/uploads/2022/01/foto-para-perfil-do-whatsapp-4.jpg"
+            src="https://1.bp.blogspot.com/-seUOtdj1568/XrydIzx59MI/AAAAAAAAVdo/iZEzJtoiez06mk27kFv63mmz-xkHvBK-gCNcBGAsYHQ/s1600/selfie%2Bem%2Bcasa%2B7.jpg"
             alt="Márcia Helena"
           />
-          <div style={styles.headerRight}>
-            <InputGroup>
-              <InputGroup.Text>
-                <FaSearch />
-              </InputGroup.Text>
-              <FormControl placeholder="Pesquisar" style={{ marginLeft: '10px' }} />
-            </InputGroup>
+          <div style={styles.icons}>
+            <FaEnvelope style={styles.messageIcon} />
             <FaEllipsisH style={styles.menuIcon} />
           </div>
         </div>
       </div>
       <div style={styles.content}>
         <div style={styles.userListContainer}>
+          <div style={styles.headerRight}>
+            <InputGroup style={styles.searchBar}>
+              <InputGroup.Text>
+                <FontAwesomeIcon icon={faSearch} style={styles.searchIcon} />
+              </InputGroup.Text>
+              <FormControl
+                placeholder="Pesquisar ou começar uma nova conversa"
+                className="full-width-input"
+                style={styles.searchInput}
+              />
+            </InputGroup>
+          </div>
           <div style={styles.userListTitle}>Conversas</div>
           <div>
             <ul style={styles.userList}>
               {users.map((user) => (
                 <li
                   key={user.id}
-                  className={`${styles.userListItem} ${hoveredUser === user.id ? styles.userListItemHover : ""}`}
+                  className={`${styles.userListItem} ${hoveredUser === user.id ? styles.userListItemHover : ''
+                    }`}
                   onMouseEnter={() => handleMouseEnter(user.id)}
                   onMouseLeave={() => handleMouseLeave(user.id)}
                 >
                   <div style={styles.userAvatarContainer}>
                     <img style={styles.userAvatar} src={user.photoUrl} alt={user.username} />
-                    {user.hasNewMessages && <div style={styles.newMessagesIndicator} />}
+                    {user.hasNewMessages && (
+                      <div style={styles.newMessagesIndicator}>
+                        <span style={styles.unreadMessagesCount}>{user.unreadMessages}</span>
+                      </div>
+                    )}
                     <div style={styles.userInfo}>
                       <h4 style={styles.username}>{user.username}</h4>
                       <p style={styles.lastMessage}>{user.lastMessage}</p>
@@ -117,7 +131,7 @@ const ChatScreen = () => {
             </ul>
           </div>
         </div>
-        <div style={styles.chatContainer}>
+        <div style={{ ...styles.chatContainer, backgroundImage: 'url("https://marketplace.canva.com/EAFKIsxfWjI/1/0/1600w/canva-papel-de-parede-cora%C3%A7%C3%A3o-gradiente-bege-rosa-e-azul-eS21LuYsgUs.jpg")', }}>
           <div style={styles.chatHeader}>
             <h2 style={styles.chatTitle}>Nome do Contato</h2>
             <FaEllipsisV style={styles.chatMenuIcon} />
@@ -150,8 +164,8 @@ const ChatScreen = () => {
         </div>
       </div>
     </div>
-  ); 
-}
+  );
+};
 
 const styles = {
   container: {
@@ -162,7 +176,7 @@ const styles = {
   },
   headerContainer: {
     flex: '0 0 auto',
-    width: '320px', // Defina a largura desejada aqui
+    width: '375px', // Defina a largura desejada aqui
   },
   header: {
     display: 'flex',
@@ -172,10 +186,47 @@ const styles = {
     backgroundColor: '#075e54',
     color: 'white',
   },
+  unreadMessagesCount: {
+    color: 'green',
+    fontSize: '12px',
+    fontWeight: 'bold',
+  },
+  messageIcon: {
+    fontSize: '20px',
+    color: '#f8f9f',
+  },
   lastMessage: {
     margin: '0',
     fontSize: '14px',
     color: '#999999',
+  },
+  icons: {
+    display: 'flex',
+    width: '65px',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingRight: '15px',
+  },
+  searchBar: {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#F4F4F4',
+    borderRadius: '8px',
+    padding: '4px',
+    width: '100%',
+  },
+  searchIcon: {
+    color: '#919191',
+  },
+  searchInput: {
+    width: 'calc(100% - 55px)', // Ajuste a largura subtraindo o espaço da margem direita
+    boxSizing: 'border-box',
+    marginLeft: '10px',
+    border: 'none',
+    outline: 'none',
+    backgroundColor: '#F4F4F4',
+    borderRadius: '8px',
+    fontSize: '14px',
   },
   whatsappLogo: {
     width: '50px',
@@ -189,10 +240,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: '16px',
-  },
-  searchIcon: {
-    marginRight: '10px',
-    fontSize: '20px',
+    width: '100%',
   },
   menuIcon: {
     fontSize: '20px',
@@ -202,10 +250,10 @@ const styles = {
     flex: '1',
   },
   userListContainer: {
-    flex: '0 0 300px',
+    flex: '0 0 375px',
     padding: '10px',
     backgroundColor: '#f8f9fa',
-    borderRight: '1px solid #ddd',
+    borderRight: '4px solid #ddd',
     overflowY: 'auto', // Adicionado para permitir rolagem vertical
   },
   userListTitle: {
@@ -247,7 +295,7 @@ const styles = {
     borderRadius: '50%',
     marginRight: '10px',
   },
-  ewMessagesIndicator: {
+  newMessagesIndicator: {
     position: 'absolute',
     top: '50%',
     right: '-5px',
@@ -278,6 +326,9 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
+    backgroundImage: 'url("https://www.argali.com.br/wp-content/uploads/2017/09/WhatsApp.jpg")',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
   },
   chatHeader: {
     display: 'flex',
@@ -300,13 +351,13 @@ const styles = {
     overflowY: 'auto',
   },
   messageItem: {
-    marginBottom: '5px',
+    marginBottom: '10px',
     padding: '10px',
     borderRadius: '10px',
     backgroundColor: '#e2ffc7',
   },
   messageItemOwn: {
-    marginBottom: '5px',
+    marginBottom: '10px',
     padding: '10px',
     borderRadius: '10px',
     backgroundColor: '#dcf8c6',
@@ -323,6 +374,7 @@ const styles = {
   },
   input: {
     flex: '1',
+    minWidth: '0', // Adicione esta linha
     marginRight: '10px',
     padding: '5px',
     border: '1px solid #e0e0e0',
@@ -330,7 +382,7 @@ const styles = {
     outline: 'none',
   },
   button: {
-    padding: '5px 10px',
+    padding: '10px 15px',
     backgroundColor: '#128c7e',
     color: 'white',
     border: 'none',
@@ -338,7 +390,7 @@ const styles = {
     cursor: 'pointer',
   },
   logoutButton: {
-    padding: '5px 10px',
+    padding: '10px 15px',
     backgroundColor: '#128c7e',
     color: 'white',
     border: 'none',
@@ -347,6 +399,5 @@ const styles = {
     marginLeft: '10px',
   },
 };
-
 
 export default ChatScreen;
