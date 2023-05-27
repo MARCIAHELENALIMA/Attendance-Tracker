@@ -2,7 +2,7 @@
 
 Este é um projeto do desafio para a vaga de desenvolvedor iniciante. Consiste em uma aplicação de chat usando React no front-end e Node.js (Express) no back-end.
 
-# Pré-requisitos
+## Pré-requisitos
 
 Este é um aplicativo de bate-papo construído usando React e Node.js (Express) para o front-end e back-end, respectivamente. Ele permite que os usuários enviem e recebam mensagens em tempo real.
 Antes de executar o aplicativo, certifique-se de ter o seguinte software instalado em seu sistema:
@@ -10,10 +10,10 @@ Antes de executar o aplicativo, certifique-se de ter o seguinte software instala
 - Node.js: baixe e instale o Node.js <https://nodejs.org/en/download>
 - MongoDB: baixe e instale o MongoDB <https://www.mongodb.com/try/download/community>
 
-# Começando
+## Começando
 Siga as etapas abaixo para configurar e executar o projeto localmente:
 
-# Configuração de back-end
+## Configuração de back-end
 
 Clone o repositório:
 - git clone <https://github.com/MARCIAHELENALIMA/Desafio-Vaga-Dev-Iniciante.git>
@@ -47,14 +47,14 @@ O servidor de desenvolvimento React será executado em <http://localhost:3000>.
 
 Abra seu navegador da Web e visite <http://localhost:3000> para acessar o aplicativo de bate-papo.
 
-# Uso
+## Uso
 - Login: 
 Faça login com as credenciais sugeridas no cpf e adicione qualquer numero para a senha.
 
 - Bate-papo: 
 envie e receba mensagens em tempo real com outros usuários que estão online no momento.
 
-# Estrutura do Projeto
+## Estrutura do Projeto
 A estrutura do projeto é a seguinte:
 
 - backend/: Contém os arquivos do servidor back-end.
@@ -66,7 +66,7 @@ A estrutura do projeto é a seguinte:
 - frontend/src/services/: contém o serviço de API para interagir com o back-end.
 - frontend/src/utils/: Contém funções de utilidade e constantes.
 
-# Tecnologias usadas
+## Tecnologias usadas
 
 Front-end:
 * Reagir
@@ -87,8 +87,8 @@ Back-end:
 * Token da Web JSON (JWT)
 * Cors
 
-# Contribuindo
+## Contribuindo
 Contribuições para este projeto são bem-vindas. Se você encontrar algum problema ou tiver sugestões de melhoria, sinta-se à vontade para abrir um problema ou enviar uma solicitação de recebimento.
 
-# Licença
+## Licença
 Este projeto está licenciado sob a licença MIT .
