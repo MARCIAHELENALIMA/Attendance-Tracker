@@ -31,7 +31,7 @@ Configure a conexão do MongoDB:
 
 Inicie o servidor de back-end:
 -  npm start
-O servidor será executado em <http://localhost:8000>.
+- O servidor será executado em <http://localhost:8000>.
 
 ## Configuração de front-end
 
@@ -43,7 +43,7 @@ Instale as dependências:
 
 Inicie o servidor de desenvolvimento:
 - npm start
-O servidor de desenvolvimento React será executado em <http://localhost:3000>.
+- O servidor de desenvolvimento React será executado em <http://localhost:3000>.
 
 Abra seu navegador da Web e visite <http://localhost:3000> para acessar o aplicativo de bate-papo.
 
