@@ -81,41 +81,37 @@ const ChatScreen = () => {
             src="https://anagiovanna.com.br/blog/wp-content/uploads/2022/01/foto-para-perfil-do-whatsapp-4.jpg"
             alt="Márcia Helena"
           />
-        </div>
-      </div>
-      <div style={styles.content}>
-
-        <div style={styles.userListContainer}>
           <div style={styles.headerRight}>
             <InputGroup>
               <InputGroup.Text>
                 <FaSearch />
               </InputGroup.Text>
-              <FormControl placeholder="Search" style={{ marginLeft: '10px' }} />
+              <FormControl placeholder="Pesquisar" style={{ marginLeft: '10px' }} />
             </InputGroup>
             <FaEllipsisH style={styles.menuIcon} />
           </div>
+        </div>
+      </div>
+      <div style={styles.content}>
+        <div style={styles.userListContainer}>
           <div style={styles.userListTitle}>Conversas</div>
           <div>
             <ul style={styles.userList}>
               {users.map((user) => (
                 <li
                   key={user.id}
-                  className={`${styles.userListItem} ${hoveredUser === user.id ? styles.userListItemHover : ""
-                    }`}
+                  className={`${styles.userListItem} ${hoveredUser === user.id ? styles.userListItemHover : ""}`}
                   onMouseEnter={() => handleMouseEnter(user.id)}
                   onMouseLeave={() => handleMouseLeave(user.id)}
                 >
                   <div style={styles.userAvatarContainer}>
                     <img style={styles.userAvatar} src={user.photoUrl} alt={user.username} />
                     {user.hasNewMessages && <div style={styles.newMessagesIndicator} />}
-
                     <div style={styles.userInfo}>
                       <h4 style={styles.username}>{user.username}</h4>
                       <p style={styles.lastMessage}>{user.lastMessage}</p>
                     </div>
                   </div>
-
                 </li>
               ))}
             </ul>
@@ -151,11 +147,10 @@ const ChatScreen = () => {
               Sair
             </button>
           </form>
-
         </div>
       </div>
     </div>
-  );
+  ); 
 }
 
 const styles = {
