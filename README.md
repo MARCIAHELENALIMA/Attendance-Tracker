@@ -69,7 +69,7 @@ A estrutura do projeto é a seguinte:
 ## Tecnologias usadas
 
 Front-end:
-* Reagir
+* React
 * React Router
 * Axios
 * Cliente Socket.IO
