@@ -1,4 +1,5 @@
-# Desafio Vaga Dev Iniciante
+# Desafio Vaga Dev Iniciante  
+  Futuramente quando estiver com mais conhecimento eu irei atualizar ele
 
 Este é um projeto do desafio para a vaga de desenvolvedor iniciante. Consiste em uma aplicação de chat usando React no front-end e Node.js (Express) no back-end.
 
