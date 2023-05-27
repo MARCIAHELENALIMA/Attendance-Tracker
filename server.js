@@ -8,18 +8,16 @@ const socketRoutes = require('./client/src/routes/socketRoutes');
 const cookieParser = require('cookie-parser');
 const UserModel = require('./client/src/models/UserModel');
 
-
 const app = express();
 const httpServer = http.createServer(app);
 app.use(cookieParser());
 app.use(cors());
 
 // Configure connection to MongoDB
-mongoose
-  .connect('mongodb://localhost:27017/chat_app', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+mongoose.connect('mongodb://localhost:27017/chat_app', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -73,7 +71,10 @@ app.post('/', (req, res) => {
 
   // Example of sending a success response with the received data
   const { nome, idade } = req.body;
-  res.status(200).cookie('cookieName', 'cookieValue', { sameSite: 'none', secure: true }).json({ message: 'POST request received successfully', nome, idade });
+  res
+    .status(200)
+    .cookie('cookieName', 'cookieValue', { sameSite: 'none', secure: true })
+    .json({ message: 'POST request received successfully', nome, idade });
 });
 
 // Example route to set a cookie with SameSite and Secure attributes
@@ -92,10 +93,10 @@ const httpPort = 8000;
 const socketIOPort = 9000;
 
 httpServer.listen(httpPort, () => {
-  console.log(`Servidor HTTP rodando em http://localhost:${httpPort}`);
+  console.log(`HTTP server running at http://localhost:${httpPort}`);
 });
 
-// Iniciar o servidor Socket.IO
+// Initialize the Socket.IO server
 const io = new Server(httpServer, {
   cors: {
     origin: 'http://localhost:3000',
@@ -103,21 +104,21 @@ const io = new Server(httpServer, {
 });
 
 io.on('connection', (socket) => {
-  console.log('Novo cliente conectado');
+  console.log('New client connected');
 
   socket.on('sendMessage', (message) => {
-    // Lógica para lidar com a mensagem recebida do cliente
-    console.log('Mensagem recebida:', message);
+    // Logic to handle the message received from the client
+    console.log('Received message:', message);
 
-    // Enviar a mensagem de volta para o cliente ou fazer outras ações necessárias
-    socket.emit('message', 'Mensagem recebida pelo servidor');
+    // Send the message back to the client or perform other necessary actions
+    socket.emit('message', 'Message received by the server');
   });
 
   socket.on('disconnect', () => {
-    console.log('Cliente desconectado');
+    console.log('Client disconnected');
   });
 });
 
 io.listen(socketIOPort, () => {
-  console.log(`Servidor Socket.IO rodando em http://localhost:${socketIOPort}`);
+  console.log(`Socket.IO server running at http://localhost:${socketIOPort}`);
 });

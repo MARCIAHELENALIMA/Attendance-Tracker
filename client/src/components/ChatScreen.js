@@ -109,55 +109,72 @@ const ChatScreen = () => {
               {users.map((user) => (
                 <li
                   key={user.id}
-                  className={`${styles.userListItem} ${hoveredUser === user.id ? styles.userListItemHover : ''
-                    }`}
+                  style={
+                    user.isActive
+                      ? { ...styles.userItem, ...styles.activeUser }
+                      : styles.userItem
+                  }
                   onMouseEnter={() => handleMouseEnter(user.id)}
-                  onMouseLeave={() => handleMouseLeave(user.id)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <div style={styles.userAvatarContainer}>
-                    <img style={styles.userAvatar} src={user.photoUrl} alt={user.username} />
-                    {user.hasNewMessages && (
-                      <div style={styles.newMessagesIndicator}>
-                        <span style={styles.unreadMessagesCount}>{user.unreadMessages}</span>
-                      </div>
+                    <img
+                      src={user.photoUrl}
+                      alt={user.username}
+                      style={styles.userAvatar}
+                    />
+                    {hoveredUser === user.id && (
+                      <FaEllipsisV style={styles.userOptions} />
                     )}
-                    <div style={styles.userInfo}>
-                      <h4 style={styles.username}>{user.username}</h4>
-                      <p style={styles.lastMessage}>{user.lastMessage}</p>
-                    </div>
                   </div>
+                  <div style={styles.userInfoContainer}>
+                    <div style={styles.username}>{user.username}</div>
+                    <div style={styles.lastMessage}>{user.lastMessage}</div>
+                  </div>
+                  {user.hasNewMessages && <div style={styles.newMessageDot} />}
                 </li>
               ))}
             </ul>
           </div>
         </div>
-        <div style={{ ...styles.chatContainer, backgroundImage: 'url("https://marketplace.canva.com/EAFKIsxfWjI/1/0/1600w/canva-papel-de-parede-cora%C3%A7%C3%A3o-gradiente-bege-rosa-e-azul-eS21LuYsgUs.jpg")', }}>
+        <div style={styles.chatContainer}>
           <div style={styles.chatHeader}>
-            <h2 style={styles.chatTitle}>Nome do Contato</h2>
-            <FaEllipsisV style={styles.chatMenuIcon} />
+            <div style={styles.chatHeaderInfo}>
+              <img
+                src={users[0].photoUrl}
+                alt={users[0].username}
+                style={styles.chatAvatar}
+              />
+              <div style={styles.chatUsername}>{users[0].username}</div>
+            </div>
+            <div style={styles.chatHeaderActions}>
+              <FaEllipsisV style={styles.chatOptions} />
+            </div>
           </div>
-          <div style={styles.messageList}>
+          <div style={styles.chatMessages}>
             {messages.map((message, index) => (
               <div
                 key={index}
-                style={message.isOwn ? styles.messageItemOwn : styles.messageItem}
+                style={
+                  message.isOwn ? styles.ownMessage : styles.otherMessage
+                }
               >
-                <p style={styles.messageContent}>{message.content}</p>
+                {message.content}
               </div>
             ))}
           </div>
-          <form onSubmit={handleSendMessage} style={styles.messageInputContainer}>
+          <form onSubmit={handleSendMessage} style={styles.chatInputContainer}>
             <input
               type="text"
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Digite sua mensagem"
-              style={styles.input}
+              placeholder="Digite uma mensagem..."
+              style={styles.chatInput}
             />
-            <button type="submit" style={styles.button}>
+            <button type="submit" style={styles.sendButton}>
               Enviar
             </button>
-            <button style={styles.logoutButton} onClick={handleLogout}>
+            <button style={styles.sendButton} onClick={handleLogout}>
               Sair
             </button>
           </form>
@@ -167,12 +184,12 @@ const ChatScreen = () => {
   );
 };
 
+
 const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
-    backgroundColor: '#f8f9fa',
   },
   headerContainer: {
     flex: '0 0 auto',
@@ -183,22 +200,14 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '10px',
-    backgroundColor: '#075e54',
+    backgroundColor: '#ededed',
     color: 'white',
   },
-  unreadMessagesCount: {
-    color: 'green',
-    fontSize: '12px',
-    fontWeight: 'bold',
-  },
-  messageIcon: {
-    fontSize: '20px',
-    color: '#f8f9f',
-  },
-  lastMessage: {
-    margin: '0',
-    fontSize: '14px',
-    color: '#999999',
+  whatsappLogo: {
+    width: '50px',
+    height: '50px',
+    borderRadius: '50%',
+    marginRight: '10px',
   },
   icons: {
     display: 'flex',
@@ -206,6 +215,36 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingRight: '15px',
+    cursor: 'pointer',
+  },
+  messageIcon: {
+    fontSize: '20px',
+    color: '#999999',
+    cursor: 'pointer',
+  },
+  menuIcon: {
+    fontSize: '20px',
+    cursor: 'pointer',
+    color: '#999999',
+  },
+  content: {
+    display: 'flex',
+    flex: '1',
+    borderRadius: '10px',
+  },
+  userListContainer: {
+    flex: '0 0 375px',
+    padding: '10px',
+    backgroundColor: '#f8f9fa',
+    borderRight: '4px solid #ddd',
+  },
+  headerRight: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: '16px',
+    width: '100%',
   },
   searchBar: {
     display: 'flex',
@@ -216,7 +255,7 @@ const styles = {
     width: '100%',
   },
   searchIcon: {
-    color: '#919191',
+    color: '#999999',
   },
   searchInput: {
     width: 'calc(100% - 55px)', // Ajuste a largura subtraindo o espaço da margem direita
@@ -228,66 +267,31 @@ const styles = {
     borderRadius: '8px',
     fontSize: '14px',
   },
-  whatsappLogo: {
-    width: '50px',
-    height: '50px',
-    borderRadius: '50%',
-    marginRight: '10px',
-  },
-  headerRight: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: '16px',
-    width: '100%',
-  },
-  menuIcon: {
-    fontSize: '20px',
-  },
-  content: {
-    display: 'flex',
-    flex: '1',
-  },
-  userListContainer: {
-    flex: '0 0 375px',
-    padding: '10px',
-    backgroundColor: '#f8f9fa',
-    borderRight: '4px solid #ddd',
-    overflowY: 'auto', // Adicionado para permitir rolagem vertical
-  },
   userListTitle: {
-    margin: '0',
     padding: '10px',
-    fontSize: '18px',
     fontWeight: 'bold',
-    color: '#4a4a4a',
-    borderBottom: '1px solid #ddd', // Adicionado para separar o título da lista
+    fontSize: '14px',
+    textTransform: 'uppercase',
+    borderBottom: '1px solid #ddd',
   },
   userList: {
     margin: '0',
     padding: '0',
     listStyleType: 'none',
   },
-  userListItem: {
+  userItem: {
     display: 'flex',
     alignItems: 'center',
-    padding: '10px',
-    backgroundColor: '#fff',
+    padding: '10px 20px',
     cursor: 'pointer',
-    transition: 'background-color 0.3s',
-    borderBottom: '1px solid #ddd', // Adicionado para separar os itens da lista
+    transition: 'background-color 0.2s',
   },
-  userListItemHover: {
-    backgroundColor: '#f2f2f2',
+  activeUser: {
+    backgroundColor: '#f5f5f5',
   },
   userAvatarContainer: {
-    display: 'flex',
-    alignItems: 'center',
+    position: 'relative',
     marginRight: '10px',
-    position: 'relative', // Adicionado para posicionar o indicador de novas mensagens
-    borderBottom: '1px solid #ddd', // Adicionado para separar o título da lista
-    padding: '10px',
   },
   userAvatar: {
     width: '50px',
@@ -295,108 +299,112 @@ const styles = {
     borderRadius: '50%',
     marginRight: '10px',
   },
-  newMessagesIndicator: {
+  userOptions: {
     position: 'absolute',
     top: '50%',
-    right: '-5px',
-    transform: 'translateY(-50%)', // Adicionado para centralizar verticalmente
-    width: '10px',
-    height: '10px',
-    borderRadius: '50%',
-    backgroundColor: '#128c7e',
+    right: '-10px',
+    transform: 'translateY(-50%)',
+    fontSize: '20px',
+    color: '#aaa',
+    cursor: 'pointer',
   },
-  userInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: '1', // Adicionado para ocupar o espaço disponível
+  userInfoContainer: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
   username: {
-    margin: '0',
-    fontSize: '16px',
     fontWeight: 'bold',
-    color: '#075e54',
+    fontSize: '14px',
+    marginBottom: '3px',
   },
-  status: {
+  lastMessage: {
     margin: '0',
     fontSize: '14px',
     color: '#999999',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+  },
+  newMessageDot: {
+    height: '10px',
+    width: '10px',
+    borderRadius: '50%',
+    backgroundColor: '#4caf50',
+    marginLeft: '10px',
   },
   chatContainer: {
-    flex: '1',
+    flex: '2',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#fff',
-    backgroundImage: 'url("https://www.argali.com.br/wp-content/uploads/2017/09/WhatsApp.jpg")',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
   },
   chatHeader: {
+    height: '60px',
+    backgroundColor: '#ededed',
+    borderBottom: '1px solid #ddd',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0 20px',
+  },
+  chatHeaderInfo: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '10px',
-    backgroundColor: '#075e54',
-    color: 'white',
   },
-  chatTitle: {
-    margin: '0',
-    fontSize: '16px',
+  chatAvatar: {
+    height: '40px',
+    width: '40px',
+    borderRadius: '50%',
+    marginRight: '10px',
   },
-  chatMenuIcon: {
-    fontSize: '20px',
+  chatUsername: {
+    fontWeight: 'bold',
   },
-  messageList: {
+  chatHeaderActions: {},
+  chatOptions: {
+    fontSize: '24px',
+    margin: '0 15px',
+    cursor: 'pointer',
+  },
+  chatMessages: {
     flex: '1',
-    padding: '10px',
+    padding: '20px',
     overflowY: 'auto',
   },
-  messageItem: {
-    marginBottom: '10px',
-    padding: '10px',
-    borderRadius: '10px',
-    backgroundColor: '#e2ffc7',
-  },
-  messageItemOwn: {
-    marginBottom: '10px',
-    padding: '10px',
-    borderRadius: '10px',
+  ownMessage: {
     backgroundColor: '#dcf8c6',
-    alignSelf: 'flex-end',
+    padding: '10px',
+    borderRadius: '5px',
+    marginBottom: '10px',
   },
-  messageContent: {
-    margin: '0',
+  otherMessage: {
+    backgroundColor: '#f5f5f5',
+    padding: '10px',
+    borderRadius: '5px',
+    marginBottom: '10px',
   },
-  messageInputContainer: {
+  chatInputContainer: {
+    height: '60px',
+    borderTop: '1px solid #ddd',
     display: 'flex',
     alignItems: 'center',
-    padding: '10px',
-    borderTop: '1px solid #e0e0e0',
+    padding: '0 20px',
   },
-  input: {
+  chatInput: {
     flex: '1',
-    minWidth: '0', // Adicione esta linha
-    marginRight: '10px',
-    padding: '5px',
-    border: '1px solid #e0e0e0',
-    borderRadius: '5px',
-    outline: 'none',
-  },
-  button: {
-    padding: '10px 15px',
-    backgroundColor: '#128c7e',
-    color: 'white',
     border: 'none',
     borderRadius: '5px',
-    cursor: 'pointer',
+    padding: '10px',
   },
-  logoutButton: {
-    padding: '10px 15px',
-    backgroundColor: '#128c7e',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
+  sendButton: {
     marginLeft: '10px',
+    border: 'none',
+    borderRadius: '5px',
+    backgroundColor: '#4caf50',
+    color: '#fff',
+    padding: '10px 15px',
+    cursor: 'pointer',
   },
 };
 
