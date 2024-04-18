@@ -1,92 +1,40 @@
-# Desafio Vaga Dev Iniciante  
-  Futuramente quando estiver com mais conhecimento eu irei atualizar ele
+# Attendance Tracker
 
-Este é um projeto do desafio para a vaga de desenvolvedor iniciante. Consiste em uma aplicação de chat usando React no front-end e Node.js (Express) no back-end.
+## Descrição
 
-## Pré-requisitos
+O Attendance Tracker é um software desenvolvido para registrar faltas de alunos e enviar multas automáticas via WhatsApp quando os alunos faltarem às aulas. Além disso, o software inclui funcionalidades adicionais, como autenticação e autorização para administradores, gestão de usuários, notificações automáticas e integração com serviços de mensagens.
 
-Este é um aplicativo de bate-papo construído usando React e Node.js (Express) para o front-end e back-end, respectivamente. Ele permite que os usuários enviem e recebam mensagens em tempo real.
-Antes de executar o aplicativo, certifique-se de ter o seguinte software instalado em seu sistema:
+## Funcionalidades Principais
 
-- Node.js: baixe e instale o Node.js <https://nodejs.org/en/download>
-- MongoDB: baixe e instale o MongoDB <https://www.mongodb.com/try/download/community>
+- **Registro de Faltas**: Os administradores podem registrar faltas de alunos no sistema.
+- **Envio de Multas Automáticas**: O sistema envia multas automáticas via WhatsApp para os alunos ausentes.
+- **Autenticação e Autorização**: Sistema exclusivo de autenticação para administradores e autorização para definir permissões de acesso.
+- **Gestão de Usuários**: Simplificação da gestão de usuários, focando apenas nos administradores.
+- **Notificações Automáticas**: Configuração de notificações automáticas sobre faltas registradas, entregues via WhatsApp.
+- **Documentação API**: Utilização do SpringDoc OpenAPI para documentação da API, facilitando integrações por desenvolvedores.
 
-## Começando
-Siga as etapas abaixo para configurar e executar o projeto localmente:
+## Tecnologias Utilizadas
 
-## Configuração de back-end
+- **Linguagem de Programação**: Kotlin
+- **Framework Web**: Spring Boot
+- **Autenticação**: Firebase Authentication
+- **Banco de Dados**: H2 (desenvolvimento e testes), PostgreSQL (produção)
+- **Segurança**: Spring Security com JWT
+- **Frontend**: HTML e CSS para interface de usuário responsiva
+- **Serviço de Notificação**: Spring Mail para envio de e-mails
+- **Documentação API**: SpringDoc OpenAPI
+- **Integração com WhatsApp**: Twilio API
 
-Clone o repositório:
-- git clone <https://github.com/MARCIAHELENALIMA/Desafio-Vaga-Dev-Iniciante.git>
+## Instalação e Configuração
 
-Instale as dependências:
-- npm install 
+1. Clone o repositório do Attendance Tracker.
+2. Configure as dependências e variáveis de ambiente necessárias.
+3. Execute a aplicação Spring Boot.
 
+## Contribuição
 
-Configure a conexão do MongoDB:
-   Certifique-se de que o MongoDB esteja em execução em sua máquina local.
-   Abra o backend/.envarquivo e defina a MONGODB_URI variável para sua string de conexão do MongoDB.
-
-Inicie o servidor de back-end:
--  npm start
-- O servidor será executado em <http://localhost:8000>.
-
-## Configuração de front-end
-
-Navegue até o diretório front-end:
-- cd client
-
-Instale as dependências:
-- npm install
-
-Inicie o servidor de desenvolvimento:
-- npm start
-- O servidor de desenvolvimento React será executado em <http://localhost:3000>.
-
-Abra seu navegador da Web e visite <http://localhost:3000> para acessar o aplicativo de bate-papo.
-
-## Uso
-- Login: 
-Faça login com as credenciais sugeridas no cpf e adicione qualquer numero para a senha.
-
-- Bate-papo: 
-envie e receba mensagens em tempo real com outros usuários que estão online no momento.
-
-## Estrutura do Projeto
-A estrutura do projeto é a seguinte:
-
-- backend/: Contém os arquivos do servidor back-end.
-- backend/routes/: define as rotas de API para autenticação de usuário e comunicação de soquete.
-- backend/models/: Define os modelos de dados para MongoDB.
-- frontend/: contém o aplicativo React front-end.
-- frontend/src/components/: Contém componentes reutilizáveis ​​usados ​​no aplicativo.
-- frontend/src/pages/: Contém as páginas principais do aplicativo.
-- frontend/src/services/: contém o serviço de API para interagir com o back-end.
-- frontend/src/utils/: Contém funções de utilidade e constantes.
-
-## Tecnologias usadas
-
-Front-end:
-* React
-* React Router
-* Axios
-* Cliente Socket.IO
-* Bootstrap
-* FonteAwesome
-* Componentes estilizados
-
-Back-end:
-* Node.js
-* Express.js
-* MongoDBGenericName
-* Mangusto
-* Socket.IO
-* Bcrypt
-* Token da Web JSON (JWT)
-* Cors
-
-## Contribuindo
-Contribuições para este projeto são bem-vindas. Se você encontrar algum problema ou tiver sugestões de melhoria, sinta-se à vontade para abrir um problema ou enviar uma solicitação de recebimento.
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
 ## Licença
-Este projeto está licenciado sob a licença MIT .
+
+Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
