@@ -7,9 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="attendance-tracker" />
-        <module name="attendance-tracker (2)" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="attendance-tracker (1)" target="17" />
+      <module name="attendance-tracker (2)" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

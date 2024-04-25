@@ -1,0 +1,7 @@
+{
+  "name": "attendance-tracker",
+  "version": "1.0.0",
+  "dependencies": {
+    "firebase": "^10.11.0"
+  }
+}
